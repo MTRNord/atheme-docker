@@ -48,6 +48,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: |
+            ATHEME_VERSION=${{ github.event.inputs.release_tag }}
           tags: |
             dino82/atheme:${{ github.event.inputs.release_tag }}
             dino82/atheme:latest
