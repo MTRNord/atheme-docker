@@ -15,26 +15,25 @@ RUN apk add --no-cache \
     build-base \
     pkgconf \
     openssl-dev \
-    git
+    git \
+    autoconf \
+    automake
 
 # libexecinfo is used by contrib/gen_echoserver
 RUN test -z "$BUILD_CONTRIB_MODULES" || apk add --no-cache libexecinfo-dev
 
 # Checkout from Git - we need to manually bump the libmowgli snapshot to fix compilation against musl
 # This will be fixed when 7.3 releases
-#RUN git clone https://github.com/atheme/atheme -b v${ATHEME_VERSION} --depth=1 atheme-src --recursive
-RUN git clone https://github.com/atheme/atheme -b v${ATHEME_VERSION}
+RUN git clone https://github.com/atheme/atheme -b v${ATHEME_VERSION} --depth=1 atheme-src --recursive
 RUN cd /atheme-src/libmowgli-2 && \
     git pull origin master
 
 # 2022-02-01: build fix for alpine
 RUN test -z "$BUILD_CONTRIB_MODULES" || sed -i "s/@MKDIR_P@/mkdir -p/g" /atheme-src/modules/contrib/buildsys.mk.in
 
-# Obtain latest autoconf guess files
-RUN wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD' -O '/atheme-src/build-aux/config.guess' && wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD' -O '/atheme-src/build-aux/config.sub'
-
 # Configure and build
 RUN cd /atheme-src && \
+    autoreconf -fi && \
     ./configure --prefix=/atheme $(test -z "$BUILD_CONTRIB_MODULES" || echo --enable-contrib) && \
     make -j${MAKE_NUM_JOBS:-$(nproc)} && make install
 
