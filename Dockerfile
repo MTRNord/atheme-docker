@@ -30,7 +30,7 @@ RUN cd /atheme-src/libmowgli-2 && \
 RUN test -z "$BUILD_CONTRIB_MODULES" || sed -i "s/@MKDIR_P@/mkdir -p/g" /atheme-src/modules/contrib/buildsys.mk.in
 
 # Obtain latest autoconf guess files
-RUN wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD' -O './config.guess' && wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD' -O './config.sub'
+RUN wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD' -O '/atheme-src/build-aux/config.guess' && wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD' -O '/atheme-src/build-aux/config.sub'
 
 # Configure and build
 RUN cd /atheme-src && \
