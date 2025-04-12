@@ -1,7 +1,5 @@
 # atheme-docker
 
-[![Build Status](https://drone.overdrivenetworks.com/api/badges/overdrivenetworks/atheme-docker/status.svg)](https://drone.overdrivenetworks.com/overdrivenetworks/atheme-docker)
-
 This is an unofficial Docker image for [Atheme IRC Services](https://github.com/atheme/atheme), based off of Alpine.
 
 ## Usage
