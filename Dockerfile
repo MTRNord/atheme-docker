@@ -44,7 +44,7 @@ ARG BUILD_CONTRIB_MODULES
 
 # openssl: used by some hashing and SASL algorithms
 # msmtp: used to route mail to an external mail server
-RUN apk add --no-cache openssl msmtp ca-certificates && (test -z "$BUILD_CONTRIB_MODULES" || apk add --no-cache libexecinfo)
+RUN apk add --no-cache openssl msmtp ca-certificates
 
 COPY --from=builder /atheme/ /atheme
 
