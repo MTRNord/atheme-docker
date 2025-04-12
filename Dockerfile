@@ -29,9 +29,15 @@ RUN cd /atheme-src/libmowgli-2 && \
 # 2022-02-01: build fix for alpine
 RUN test -z "$BUILD_CONTRIB_MODULES" || sed -i "s/@MKDIR_P@/mkdir -p/g" /atheme-src/modules/contrib/buildsys.mk.in
 
-# Configure and build
+# Configure and build note that --build is used for cross-compilation using docker multiarch
 RUN cd /atheme-src && \
-    ./configure --prefix=/atheme $(test -z "$BUILD_CONTRIB_MODULES" || echo --enable-contrib) && \
+    ARCH=$(apk --print-arch) && \
+    BUILD_FLAG=$(case "$ARCH" in \
+        aarch64) echo "--build=aarch64-unknown-linux-gnu" ;; \
+        x86_64) echo "--build=x86_64-unknown-linux-gnu" ;; \
+        *) echo "--build=$ARCH-unknown-linux-gnu" ;; \
+    esac) && \
+    ./configure --prefix=/atheme $(test -z "$BUILD_CONTRIB_MODULES" || echo --enable-contrib) $BUILD_FLAG && \
     make -j${MAKE_NUM_JOBS:-$(nproc)} && make install
 
 
