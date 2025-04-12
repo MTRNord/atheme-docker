@@ -55,7 +55,7 @@ jobs:
             ATHEME_VERSION=${{ github.event.inputs.release_tag }}
             BUILD_CONTRIB_MODULES=${{ github.event.inputs.contrib }}
           tags: |
-            ghcr.io/mtrnord/atheme:contrib-${{ github.event.inputs.release_tag }}
+            ghcr.io/mtrnord/atheme:${{ github.event.inputs.release_tag }}-contrib
             ghcr.io/mtrnord/atheme:contrib
 
       - name: Docker build and push
