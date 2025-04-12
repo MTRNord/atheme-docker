@@ -17,9 +17,6 @@ RUN apk add --no-cache \
     openssl-dev \
     git
 
-# libexecinfo is used by contrib/gen_echoserver
-RUN test -z "$BUILD_CONTRIB_MODULES" || apk add --no-cache libexecinfo-dev
-
 # Checkout from Git - we need to manually bump the libmowgli snapshot to fix compilation against musl
 # This will be fixed when 7.3 releases
 RUN git clone https://github.com/atheme/atheme -b v${ATHEME_VERSION} --depth=1 atheme-src --recursive
