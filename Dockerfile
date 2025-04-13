@@ -15,7 +15,8 @@ RUN apk add --no-cache \
     build-base \
     pkgconf \
     openssl-dev \
-    git
+    git \
+    libargon2
 
 # Checkout from Git - we need to manually bump the libmowgli snapshot to fix compilation against musl
 # This will be fixed when 7.3 releases
