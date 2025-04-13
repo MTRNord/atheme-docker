@@ -12,6 +12,12 @@ if test -f "$DBPATH" && ! test -r "$DBPATH"; then
     exit 1
 fi
 
+# Check if db exists if it does not we run "/atheme/bin/atheme-services -b" to create the db
+if ! test -f "$DBPATH"; then
+    echo "ERROR: $DBPATH does not exist. Creating a new database."
+    /atheme/bin/atheme-services -b
+fi
+
 TMPPATH="$DATADIR/services.db.new"
 if test -f "$TMPPATH" && ! test -w "$TMPPATH"; then
     echo "ERROR: $TMPPATH must either not exist or be writable by UID $(cat /.atheme_uid)"
@@ -19,4 +25,4 @@ if test -f "$TMPPATH" && ! test -w "$TMPPATH"; then
 fi
 
 rm -f /atheme/var/atheme.pid
-/atheme/bin/atheme-services -b -n "$@"
+/atheme/bin/atheme-services -n "$@"
