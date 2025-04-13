@@ -19,4 +19,4 @@ if test -f "$TMPPATH" && ! test -w "$TMPPATH"; then
 fi
 
 rm -f /atheme/var/atheme.pid
-/bin/atheme-services -n "$@"
+/atheme/bin/atheme-services -n "$@"

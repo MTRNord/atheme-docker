@@ -34,7 +34,7 @@ RUN cd /atheme-src && \
         x86_64) echo "--build=x86_64-unknown-linux-gnu" ;; \
         *) echo "--build=$ARCH-unknown-linux-gnu" ;; \
     esac) && \
-    ./configure --exec_prefix=/ --prefix=/atheme $(test -z "$BUILD_CONTRIB_MODULES" || echo --enable-contrib) $BUILD_FLAG && \
+    ./configure --exec_prefix=/atheme --prefix=/atheme $(test -z "$BUILD_CONTRIB_MODULES" || echo --enable-contrib) $BUILD_FLAG && \
     make -j${MAKE_NUM_JOBS:-$(nproc)} && make install
 
 
