@@ -45,7 +45,7 @@ ARG BUILD_CONTRIB_MODULES
 
 # openssl: used by some hashing and SASL algorithms
 # msmtp: used to route mail to an external mail server
-RUN apk add --no-cache openssl msmtp ca-certificates argon2
+RUN apk add --no-cache openssl msmtp ca-certificates argon2 argon2-libs
 
 COPY --from=builder /atheme/ /atheme
 
