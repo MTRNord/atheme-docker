@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     pkgconf \
     openssl-dev \
     git \
-    argon2
+    argon2 argon2-libs argon2-dev
 
 # Checkout from Git - we need to manually bump the libmowgli snapshot to fix compilation against musl
 # This will be fixed when 7.3 releases
